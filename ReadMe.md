@@ -144,8 +144,6 @@ Not: [Ethers Playground](https://playground.ethers.org/)
 
 <br/>
 
-[Video İçeriği](https://www.youtube.com/watch?v=0stIYoi3KG8&list=PLby2HXktGwN4Cof_6a8YwlMrboX8-hs73&index=19&t=3018s)
-
-[Proje Dizini](./lock-project)
-
-[Boilerplate](./boilerplate)
+```
+wizard.openzeppelin.com
+```
