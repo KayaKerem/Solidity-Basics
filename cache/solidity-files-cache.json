@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/mgssoftware/solidity/contracts/Lock.sol": {
-      "lastModificationDate": 1659950965115,
-      "contentHash": "6f215161bc79083924f650b3932d70bd",
+      "lastModificationDate": 1659955765911,
+      "contentHash": "2f4f117bb6099feb5b392200b046021c",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
         "version": "0.8.2",

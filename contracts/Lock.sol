@@ -35,4 +35,10 @@ contract Lock {
 
         require(Token.transfer(msg.sender, amount), "Error");
     }
+
+
+    
+
+
+
 }

@@ -79,22 +79,64 @@ describe("Lock Contract", function () {
         
     });
     describe("Contract Functions", function () {
+
+        let lockerCount = 0;
+        let totalLocked = 0;
+        let userLocks = [0, 0];
         
         it("user1 locks 10 tokens", async function () {
-            
+
+            totalLocked += 10;
+            userLocks[0] += 10;
+            lockerCount++;
+
+            await lock.connect(user1).lockTokens(ethers.utils.parseEther("10"));
+
+            expect(balances[3] + 10).to.be.equal(ethToNum(await token.balanceOf(lock.address)));
+            expect(userLocks[0]).to.be.equal(ethToNum(await lock.lockers(user1.address)));
+
         });
 
         it("Locker count and locked amount increase", async function () {
-            
+            expect(await lock.lockerCount()).to.be.equal(lockerCount);
+            expect(ethToNum(await lock.totalLocked())).to.be.equal(totalLocked);
+
         });
 
         it("user2 cannot withdraw token", async function () {
-            
+            await expect(lock.connect(user2).withdrawTokens()).to.be.reverted;
         });
 
         it("user1 withdraws token", async function () {
-            
+            totalLocked -= userLocks[0];
+            userLocks[0] = 0;
+            lockerCount--;
+            await lock.connect(user1).withdrawTokens();
+
+            expect(balances[3] - 10).to.be.equal(ethToNum(await token.balanceOf(lock.address)));
+            expect(userLocks[0]).to.be.equal(ethToNum(await lock.lockers(user1.address)));
         });
+
+        it("Locker count and locked amount decrease", async function () {
+            
+            expect(await lock.lockerCount()).to.be.equal(lockerCount);
+            expect(ethToNum(await lock.totalLocked())).to.be.equal(totalLocked);
+        });
+    
+        it("user1 position deleted", async function () {
+        
+            expect(await lock.lockers(user1.address)).to.be.equal(0);
+        });
+    
+        it("user1 cannot withdraw more tokens", async function () {
+        
+            await expect(lock.connect(user1).withdrawTokens()).to.be.reverted;
+        });
+        // it("Prints timestamp", async function () {
+        //     let block_number = await provider.getBlockNumber();
+        //     let block = await provider.getBlock(block);
+        //     console.log("timestamp: ", block.timestamp);
+        // });
 
 
     });
