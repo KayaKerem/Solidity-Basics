@@ -31,8 +31,8 @@ contract Lock {
         uint256 amount = lockers[msg.sender];
         delete (lockers[msg.sender]);
         totalLocked -= amount;
-        totalLocked--;
+        totalLocked--; //
 
-        require(Token.transfer(msg.sender, _), "Error");
+        require(Token.transfer(msg.sender, amount), "Error");
     }
 }
